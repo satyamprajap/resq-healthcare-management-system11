@@ -1,0 +1,192 @@
+<style>
+  .doctors-page {
+    padding: 70px 0;
+    background: #f5f7fb;
+  }
+
+  .doctors-heading {
+    text-align: center;
+    margin-bottom: 45px;
+  }
+
+  .doctors-heading h2 {
+    color: #102b60;
+    font-size: 40px;
+    font-weight: 700;
+  }
+
+  .doctors-heading p {
+    color: #64748b;
+    font-size: 17px;
+  }
+
+  .doctor-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 30px 22px;
+    text-align: center;
+    height: 100%;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+    transition: 0.3s;
+  }
+
+  .doctor-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+  }
+
+  .doctor-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #e9f2ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    margin: 0 auto 20px;
+  }
+
+  .doctor-card h4 {
+    color: #102b60;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .doctor-card p {
+    color: #64748b;
+    line-height: 1.7;
+  }
+
+  .doctor-card a {
+    display: inline-block;
+    background: #ef476f;
+    color: white;
+    padding: 11px 22px;
+    border-radius: 7px;
+    text-decoration: none;
+    margin-top: 10px;
+  }
+
+  .doctor-card a:hover {
+    background: #102b60;
+  }
+
+  .doctor-enquiry {
+    background: #102b60;
+    padding: 40px 25px;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .doctor-enquiry h3 {
+    color: white;
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  .doctor-enquiry p {
+    color: #e2e8f0;
+  }
+
+  @media (max-width: 576px) {
+    .doctors-heading h2 {
+      font-size: 30px;
+    }
+  }
+</style>
+
+<section class="doctors-page">
+  <div class="container">
+    <!-- Doctors Heading -->
+    <div class="doctors-heading">
+      <h2>Our Healthcare Specialists</h2>
+      <p>Find the Right Medical Specialist for Your Healthcare Needs</p>
+    </div>
+
+    <!-- Doctor Specializations -->
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <div class="doctor-card">
+          <div class="doctor-icon">👨‍⚕️</div>
+          <h4>General Physician</h4>
+          <p>
+            General health consultation, routine checkups and primary healthcare
+            guidance.
+          </p>
+          <a href="/appointment">Book Appointment</a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="doctor-card">
+          <div class="doctor-icon">❤️</div>
+          <h4>Cardiologist</h4>
+          <p>
+            Heart health information, cardiovascular consultation and specialist
+            care.
+          </p>
+          <a href="/appointment">Book Appointment</a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="doctor-card">
+          <div class="doctor-icon">🧠</div>
+          <h4>Neurologist</h4>
+          <p>
+            Specialist consultation for brain, nerve and neurological health
+            concerns.
+          </p>
+          <a href="/appointment">Book Appointment</a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="doctor-card">
+          <div class="doctor-icon">🫁</div>
+          <h4>Pulmonologist</h4>
+          <p>Respiratory health consultation and lung-related medical care.</p>
+          <a href="/appointment">Book Appointment</a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="doctor-card">
+          <div class="doctor-icon">👶</div>
+          <h4>Pediatrician</h4>
+          <p>
+            Healthcare guidance for children, growth and general child wellness.
+          </p>
+          <a href="/appointment">Book Appointment</a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="doctor-card">
+          <div class="doctor-icon">🦴</div>
+          <h4>Orthopedic Specialist</h4>
+          <p>
+            Bone, joint, muscle and mobility-related healthcare consultation.
+          </p>
+          <a href="/appointment">Book Appointment</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Doctor Enquiry -->
+    <div class="doctor-enquiry">
+      <h3>Need Help Finding a Doctor?</h3>
+      <p>
+        Contact our healthcare support team for assistance with doctor
+        enquiries.
+      </p>
+
+      <a href="/contact" class="btn btn-light mt-2"> Contact Us </a>
+
+      <a href="/appointment" class="btn btn-danger mt-2"> Book Appointment </a>
+    </div>
+  </div>
+</section>

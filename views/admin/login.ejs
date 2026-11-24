@@ -1,0 +1,97 @@
+<div
+  class="container d-flex justify-content-center align-items-center"
+  style="min-height: 75vh"
+>
+  <div
+    class="card shadow-lg p-4"
+    style="width: 100%; max-width: 420px; border-radius: 15px"
+  >
+    <div class="text-center mb-4">
+      <h2 class="fw-bold text-primary">ResQ Admin</h2>
+      <p class="text-muted">Healthcare Management System</p>
+    </div>
+
+    <div id="errorMessage" class="alert alert-danger d-none"></div>
+
+    <form id="adminLoginForm">
+      <div class="mb-3">
+        <label class="form-label">Admin Email</label>
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+          placeholder="Enter admin email"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          placeholder="Enter password"
+          required
+        />
+      </div>
+
+      <button type="submit" id="loginButton" class="btn btn-primary w-100">
+        Admin Login
+      </button>
+    </form>
+
+    <div class="text-center mt-3">
+      <a href="/" class="text-decoration-none">Back to Home</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  document
+    .getElementById("adminLoginForm")
+    .addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const errorMessage = document.getElementById("errorMessage");
+      const loginButton = document.getElementById("loginButton");
+
+      errorMessage.classList.add("d-none");
+      loginButton.disabled = true;
+      loginButton.textContent = "Logging in...";
+
+      try {
+        const response = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "same-origin",
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || "Login failed");
+        }
+
+        if (!data.user || data.user.role !== "admin") {
+          throw new Error("Admin access only");
+        }
+
+        console.log("Admin login successful:", data.user);
+
+        window.location.assign("/admin");
+        return;
+      } catch (error) {
+        errorMessage.textContent = error.message;
+        errorMessage.classList.remove("d-none");
+      } finally {
+        loginButton.disabled = false;
+        loginButton.textContent = "Admin Login";
+      }
+    });
+</script>

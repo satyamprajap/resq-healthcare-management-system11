@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RESQ - Your Wishlist</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f1f3f7;
+        color: #333;
+      }
+
+      .page-wrapper {
+        width: 100%;
+        min-height: 100vh;
+        background: #f1f3f7;
+        padding: 35px 6px 60px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1250px;
+        margin: auto;
+      }
+
+      /* Wishlist Heading */
+      .section-title {
+        text-align: center;
+        margin-bottom: 78px;
+      }
+
+      .section-title__title {
+        font-size: 60px;
+        font-weight: 700;
+        color: #071f50;
+        margin-bottom: 7px;
+      }
+
+      .section-title__text {
+        font-size: 20px;
+        color: #385779;
+        line-height: 1.5;
+      }
+
+      /* Construction Banner */
+      .error-page__form-box {
+        width: 100%;
+        margin-bottom: 40px;
+      }
+
+      .error-page__form-inner {
+        background-color: #ef3f70;
+        color: white;
+        padding: 25px;
+        border-radius: 12px;
+      }
+
+      .error-page__form-inner h4 {
+        font-size: 28px;
+        font-weight: 600;
+        color: #071f50;
+        margin-bottom: 15px;
+      }
+
+      .error-page__form-inner p {
+        font-size: 19px;
+        line-height: 1.6;
+        color: white;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .page-wrapper {
+          padding: 35px 12px;
+        }
+
+        .section-title {
+          margin-bottom: 55px;
+        }
+
+        .section-title__title {
+          font-size: 38px;
+        }
+
+        .section-title__text {
+          font-size: 16px;
+        }
+
+        .error-page__form-inner {
+          padding: 22px 18px;
+        }
+
+        .error-page__form-inner h4 {
+          font-size: 21px;
+        }
+
+        .error-page__form-inner p {
+          font-size: 15px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .section-title__title {
+          font-size: 32px;
+        }
+
+        .section-title__text {
+          font-size: 14px;
+        }
+
+        .error-page__form-inner h4 {
+          font-size: 19px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+      <!-- Wishlist Section -->
+      <section class="services-one">
+        <div class="container">
+          <!-- Page Heading -->
+          <div class="section-title text-center">
+            <h2 class="section-title__title">Your Wishlist</h2>
+
+            <p class="section-title__text">
+              Meds and health products with delivery in under 20 minutes
+            </p>
+          </div>
+
+          <!-- Coming Soon Banner -->
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="error-page__form-box">
+                <div class="error-page__form-inner">
+                  <h4>🚧 Our Shop is Under Construction</h4>
+
+                  <p>
+                    We're working on launching our medicine delivery service
+                    that will bring medications to your doorstep in under 20
+                    minutes!
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("RESQ Wishlist Page Loaded Successfully!");
+      });
+    </script>
+  </body>
+</html>

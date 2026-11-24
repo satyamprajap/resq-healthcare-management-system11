@@ -1,0 +1,44 @@
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1>ResQ Admin Dashboard</h1>
+            <p>Healthcare Management System</p>
+        </div>
+        <a href="/logout" class="btn btn-danger">Logout</a>
+    </div>
+
+    <div class="card shadow-sm p-4">
+        <h3>Registered Users</h3>
+        <h2><%= users.length %></h2>
+        <p>Total users in ResQ</p>
+    </div>
+
+    <div class="card shadow-sm mt-4 p-4">
+        <h3>User Details</h3>
+
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Joined</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.firstName %> <%= user.lastName %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.role %></td>
+                            <td><%= user.createdAt ? new Date(user.createdAt).toLocaleDateString() : "N/A" %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

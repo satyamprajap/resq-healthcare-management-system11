@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>RESQ - Wishlist & Contact</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f1f3f7;
+        color: #333;
+      }
+
+      .page-wrapper {
+        width: 100%;
+        min-height: 100vh;
+        padding: 35px 6px 60px;
+      }
+
+      .container {
+        max-width: 1250px;
+        margin: auto;
+      }
+
+      /* Wishlist Heading */
+      .section-title {
+        text-align: center;
+        margin-bottom: 75px;
+      }
+
+      .section-title__title {
+        font-size: 55px;
+        font-weight: 700;
+        color: #071f50;
+        margin-bottom: 10px;
+      }
+
+      .section-title__text {
+        font-size: 19px;
+        color: #385779;
+        line-height: 1.6;
+      }
+
+      /* Construction Banner */
+      .error-page__form-box {
+        margin-bottom: 65px;
+      }
+
+      .error-page__form-inner {
+        background: #ef3f70;
+        color: white;
+        padding: 25px;
+        border-radius: 12px;
+      }
+
+      .error-page__form-inner h4 {
+        font-size: 27px;
+        color: #071f50;
+        margin-bottom: 15px;
+      }
+
+      .error-page__form-inner p {
+        font-size: 18px;
+        line-height: 1.7;
+      }
+
+      /* Contact Section */
+      .contact-page {
+        padding: 30px 15px 60px;
+      }
+
+      .contact-row {
+        display: grid;
+        grid-template-columns: 1.3fr 0.9fr;
+        gap: 55px;
+      }
+
+      /* Left Form */
+      .contact-page__title {
+        font-size: 32px;
+        color: #071f50;
+        margin-bottom: 30px;
+      }
+
+      .contact-form {
+        background: white;
+        padding: 35px;
+        border-radius: 12px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.04);
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .input-box {
+        width: 100%;
+      }
+
+      .input-box.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .input-box input,
+      .input-box textarea {
+        width: 100%;
+        padding: 16px;
+        border: 1px solid #e2e5ec;
+        border-radius: 6px;
+        outline: none;
+        font-size: 15px;
+        font-family: inherit;
+        background: #f8f9fc;
+        transition: 0.3s;
+      }
+
+      .input-box input:focus,
+      .input-box textarea:focus {
+        border-color: #ef476f;
+        background: white;
+      }
+
+      .input-box textarea {
+        height: 140px;
+        resize: vertical;
+      }
+
+      .submit-btn {
+        background: #ef476f;
+        color: white;
+        padding: 15px 28px;
+        border: none;
+        border-radius: 6px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .submit-btn:hover {
+        background: #071f50;
+        transform: translateY(-2px);
+      }
+
+      .result {
+        margin-top: 18px;
+        font-size: 14px;
+        color: #16834a;
+        line-height: 1.6;
+      }
+
+      /* Right Contact Information */
+      .contact-page__right {
+        padding: 15px 0;
+      }
+
+      .contact-tagline {
+        color: #ef476f;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin-bottom: 18px;
+      }
+
+      .contact-page__right h2 {
+        font-size: 40px;
+        line-height: 1.3;
+        color: #071f50;
+        margin-bottom: 20px;
+      }
+
+      .contact-description {
+        color: #777;
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 35px;
+      }
+
+      /* Contact Details */
+      .contact-list {
+        list-style: none;
+      }
+
+      .contact-list li {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        background: white;
+        padding: 20px;
+        border-radius: 9px;
+        margin-bottom: 18px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+      }
+
+      .contact-icon {
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #fff0f4;
+        color: #ef476f;
+        border-radius: 50%;
+        font-size: 23px;
+      }
+
+      .contact-list h3 {
+        color: #071f50;
+        font-size: 18px;
+        margin-bottom: 7px;
+      }
+
+      .contact-list p,
+      .contact-list a {
+        color: #777;
+        font-size: 15px;
+        text-decoration: none;
+        word-break: break-word;
+      }
+
+      .contact-list a:hover {
+        color: #ef476f;
+      }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .contact-row {
+          grid-template-columns: 1fr;
+          gap: 35px;
+        }
+
+        .section-title__title {
+          font-size: 42px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .page-wrapper {
+          padding: 35px 12px;
+        }
+
+        .section-title {
+          margin-bottom: 50px;
+        }
+
+        .section-title__title {
+          font-size: 34px;
+        }
+
+        .section-title__text {
+          font-size: 15px;
+        }
+
+        .error-page__form-inner {
+          padding: 22px 17px;
+        }
+
+        .error-page__form-inner h4 {
+          font-size: 20px;
+        }
+
+        .error-page__form-inner p {
+          font-size: 15px;
+        }
+
+        .contact-page {
+          padding: 15px 0;
+        }
+
+        .contact-page__title {
+          font-size: 26px;
+        }
+
+        .contact-form {
+          padding: 22px 16px;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .input-box.full-width {
+          grid-column: auto;
+        }
+
+        .contact-page__right h2 {
+          font-size: 32px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+      <!-- Wishlist Section -->
+      <section class="services-one">
+        <div class="container">
+          <div class="section-title text-center">
+            <h2 class="section-title__title">Your Wishlist</h2>
+
+            <p class="section-title__text">
+              Meds and health products with delivery in under 20 minutes
+            </p>
+          </div>
+
+          <!-- Coming Soon Banner -->
+          <div class="error-page__form-box">
+            <div class="error-page__form-inner">
+              <h4>🚧 Our Shop is Under Construction</h4>
+
+              <p>
+                We're working on launching our medicine delivery service that
+                will bring medications to your doorstep in under 20 minutes!
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Page Start -->
+      <section class="contact-page">
+        <div class="container">
+          <div class="contact-row">
+            <!-- Appointment Form -->
+            <div class="contact-page__left">
+              <h3 class="contact-page__title">Appointment Now</h3>
+
+              <form class="contact-form" id="appointmentForm">
+                <div class="form-grid">
+                  <div class="input-box">
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Your Name"
+                      required
+                    />
+                  </div>
+
+                  <div class="input-box">
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Your Email"
+                      required
+                    />
+                  </div>
+
+                  <div class="input-box">
+                    <input
+                      type="tel"
+                      name="number"
+                      placeholder="Your Number"
+                      pattern="[0-9+\-\s]{10,15}"
+                      required
+                    />
+                  </div>
+
+                  <div class="input-box">
+                    <input type="date" name="date" required />
+                  </div>
+
+                  <div class="input-box full-width">
+                    <textarea
+                      name="message"
+                      placeholder="Message here..."
+                      required
+                    ></textarea>
+                  </div>
+
+                  <div class="input-box full-width">
+                    <button type="submit" class="submit-btn">
+                      Appointment Now +
+                    </button>
+                  </div>
+                </div>
+
+                <div class="result" id="formResult"></div>
+              </form>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="contact-page__right">
+              <div class="contact-tagline">✚ GET IN TOUCH</div>
+
+              <h2>Health First Always</h2>
+
+              <p class="contact-description">
+                Health care is a vital aspect of maintaining overall well-being,
+                encompassing a range of services from preventive care to
+                treatment.
+              </p>
+
+              <ul class="contact-list">
+                <!-- Phone -->
+                <li>
+                  <div class="contact-icon">☎</div>
+
+                  <div class="content">
+                    <h3>Phone</h3>
+
+                    <p>
+                      <a href="tel:0123456789101"> 012 345 678 9101 </a>
+                    </p>
+                  </div>
+                </li>
+
+                <!-- Email -->
+                <li>
+                  <div class="contact-icon">✉</div>
+
+                  <div class="content">
+                    <h3>Email</h3>
+
+                    <p>
+                      <a href="mailto:jon12@gmail.com"> jon12@gmail.com </a>
+                    </p>
+                  </div>
+                </li>
+
+                <!-- Location -->
+                <li>
+                  <div class="contact-icon">📍</div>
+
+                  <div class="content">
+                    <h3>Location</h3>
+
+                    <p>Mirour 10 Dhaka</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Contact Page End -->
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("appointmentForm");
+        const result = document.getElementById("formResult");
+
+        // Set minimum appointment date to today
+        const dateInput = form.querySelector('input[name="date"]');
+
+        const today = new Date();
+        const localToday = new Date(
+          today.getTime() - today.getTimezoneOffset() * 60000,
+        )
+          .toISOString()
+          .split("T")[0];
+
+        dateInput.min = localToday;
+
+        // Appointment Form Submission
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+          }
+
+          result.style.color = "#16834a";
+
+          result.textContent =
+            "Thank you! Your appointment details have been entered. Please connect a backend to save and confirm your booking.";
+
+          form.reset();
+          dateInput.min = localToday;
+        });
+
+        console.log("RESQ Contact Page Loaded Successfully!");
+      });
+    </script>
+  </body>
+</html>

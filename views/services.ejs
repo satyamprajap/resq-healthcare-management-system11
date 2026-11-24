@@ -1,0 +1,204 @@
+<style>
+  .services-page {
+    padding: 70px 0;
+    background: #f5f7fb;
+  }
+
+  .services-heading {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .services-heading h2 {
+    font-size: 40px;
+    color: #102b60;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .services-heading p {
+    color: #64748b;
+    font-size: 17px;
+  }
+
+  .service-card {
+    background: #fff;
+    padding: 32px 25px;
+    border-radius: 14px;
+    height: 100%;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  .service-icon {
+    font-size: 42px;
+    margin-bottom: 18px;
+  }
+
+  .service-card h4 {
+    color: #102b60;
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .service-card p {
+    color: #64748b;
+    line-height: 1.7;
+    min-height: 75px;
+  }
+
+  .service-card a {
+    display: inline-block;
+    background: #ef476f;
+    color: white;
+    padding: 11px 22px;
+    border-radius: 7px;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+
+  .service-card a:hover {
+    background: #102b60;
+    color: white;
+  }
+
+  .services-banner {
+    background: #102b60;
+    color: white;
+    padding: 40px 25px;
+    border-radius: 14px;
+    margin-top: 50px;
+    text-align: center;
+  }
+
+  .services-banner h3 {
+    color: white;
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  .services-banner p {
+    color: #e2e8f0;
+  }
+
+  @media (max-width: 576px) {
+    .services-heading h2 {
+      font-size: 30px;
+    }
+
+    .services-page {
+      padding: 40px 0;
+    }
+
+    .service-card p {
+      min-height: auto;
+    }
+  }
+</style>
+
+<section class="services-page">
+  <div class="container">
+    <!-- Services Heading -->
+    <div class="services-heading">
+      <h2>Our Healthcare Services</h2>
+      <p>Complete Healthcare Solutions at Your Fingertips</p>
+    </div>
+
+    <!-- Services Cards -->
+    <div class="row g-4">
+      <!-- Doctor Consultation -->
+      <div class="col-lg-4 col-md-6">
+        <div class="service-card">
+          <div class="service-icon">👨‍⚕️</div>
+          <h4>Doctor Consultation</h4>
+          <p>
+            Connect with doctors and book appointments for professional medical
+            advice and healthcare support.
+          </p>
+          <a href="/doctors">Find Doctors</a>
+        </div>
+      </div>
+
+      <!-- Hospital Services -->
+      <div class="col-lg-4 col-md-6">
+        <div class="service-card">
+          <div class="service-icon">🏥</div>
+          <h4>Hospital Services</h4>
+          <p>
+            Find hospitals and explore healthcare facilities for your medical
+            needs.
+          </p>
+          <a href="/hospitals">Explore Hospitals</a>
+        </div>
+      </div>
+
+      <!-- Medicine Reminder -->
+      <div class="col-lg-4 col-md-6">
+        <div class="service-card">
+          <div class="service-icon">💊</div>
+          <h4>Medicine Reminder</h4>
+          <p>
+            Manage your medicine schedule and keep track of medication
+            reminders.
+          </p>
+          <a href="/med-reminder">Set Reminder</a>
+        </div>
+      </div>
+
+      <!-- Ambulance Booking -->
+      <div class="col-lg-4 col-md-6">
+        <div class="service-card">
+          <div class="service-icon">🚑</div>
+          <h4>Ambulance Booking</h4>
+          <p>
+            Access the ambulance booking page when emergency transportation is
+            needed.
+          </p>
+          <a href="/ambulance">Book Ambulance</a>
+        </div>
+      </div>
+
+      <!-- Ambulance Tracking -->
+      <div class="col-lg-4 col-md-6">
+        <div class="service-card">
+          <div class="service-icon">📍</div>
+          <h4>Ambulance Tracking</h4>
+          <p>
+            Open the ambulance tracking page to check available tracking
+            features.
+          </p>
+          <a href="/track-ambulance">Track Ambulance</a>
+        </div>
+      </div>
+
+      <!-- Appointment Booking -->
+      <div class="col-lg-4 col-md-6">
+        <div class="service-card">
+          <div class="service-icon">📅</div>
+          <h4>Book Appointment</h4>
+          <p>
+            Visit the appointment page to request a healthcare consultation.
+          </p>
+          <a href="/appointment">Book Appointment</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Medicine Delivery Banner -->
+    <div class="services-banner">
+      <h3>💊 Medicine Delivery – Coming Soon</h3>
+
+      <p>
+        We are working on bringing medicine delivery services to your doorstep.
+      </p>
+
+      <a href="/shop" class="btn btn-light mt-2"> Explore Shop </a>
+    </div>
+  </div>
+</section>
