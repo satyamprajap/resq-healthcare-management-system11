@@ -1,52 +1,75 @@
 const express = require("express");
 const path = require("path");
 const expressLayouts = require("express-ejs-layouts");
-const dotenv = require("dotenv");
 const cors = require("cors");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-const User = require("./server/models/User");
 
-// Load environment variables
 require("dotenv").config();
-console.log("MONGODB_URI:", process.env.MONGODB_URI);
+
+const User = require("./server/models/User");
 
 const app = express();
 
-// Connect to MongoDB with additional options and debug logging
-// Connect to MongoDB with additional options and debug logging
-console.log("MONGODB_URI:", process.env.MONGODB_URI);
+// ==========================================
+// 1. BASIC MIDDLEWARE
+// ==========================================
 
-// Connect to MongoDB
-if (!process.env.MONGODB_URI) {
-  console.error("ERROR: MONGODB_URI is missing from .env file");
-  process.exit(1);
-}
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-console.log(
-  "Connecting to MongoDB with URI:",
-  process.env.MONGODB_URI.replace(/:[^:]*@/, ":****@"),
+// ==========================================
+// 2. SESSION CONFIGURATION
+// ==========================================
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "development-secret-change-me",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+      sameSite: "lax",
+      maxAge: 24 * 60 * 60 * 1000,
+    },
+  }),
 );
 
-mongoose
-  .connect(process.env.MONGODB_URI, {
-    serverSelectionTimeoutMS: 5000,
-    socketTimeoutMS: 45000,
-  })
-  .then(async () => {
-    console.log("MongoDB connected successfully!");
+// ==========================================
+// 3. EJS CONFIGURATION
+// ==========================================
 
-    try {
-      await ensureAdminAccount();
-    } catch (error) {
-      console.error("Admin creation error:", error);
-    }
-  })
-  .catch((error) => {
-    console.error("MongoDB connection failed:", error.message);
-  });
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+app.use(expressLayouts);
+app.set("layout", "layouts/main");
+
+app.use(express.static(path.join(__dirname, "public")));
+
+// ==========================================
+// 4. GLOBAL TEMPLATE VARIABLES
+// ==========================================
+
+app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
+  res.locals.isAuthenticated = !!req.session.user;
+
+  res.locals.page =
+    req.path === "/"
+      ? "home"
+      : req.path.split("/").filter(Boolean).pop() || "home";
+
+  next();
+});
+
+// ==========================================
+// 5. ADMIN ACCOUNT SETUP
+// ==========================================
 
 async function ensureAdminAccount() {
   const email = (process.env.ADMIN_EMAIL || "").trim().toLowerCase();
@@ -54,8 +77,7 @@ async function ensureAdminAccount() {
   const password = process.env.ADMIN_PASSWORD;
 
   if (!email || !password || password.length < 12) {
-    console.log("Please configure admin credentials in .env");
-    return;
+    throw new Error("Valid ADMIN_EMAIL and ADMIN_PASSWORD required");
   }
 
   let admin = await User.findOne({ email });
@@ -71,7 +93,7 @@ async function ensureAdminAccount() {
 
     await admin.save();
 
-    console.log("Admin account verified and updated.");
+    console.log("Admin account verified successfully.");
     return;
   }
 
@@ -86,42 +108,10 @@ async function ensureAdminAccount() {
   console.log("Initial admin account created successfully!");
 }
 
-// Middleware
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
+// ==========================================
+// 6. WEBSITE PAGE ROUTES
+// ==========================================
 
-// Session configuration
-app.use(
-  session({
-    secret: process.env.JWT_SECRET || "defaultsecret",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours
-    },
-  }),
-);
-
-// Make user data available to all templates
-app.use((req, res, next) => {
-  res.locals.user = req.session.user || null;
-  res.locals.isAuthenticated = !!req.session.user;
-  next();
-});
-
-// Set up EJS as view engine
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-app.use(expressLayouts);
-app.set("layout", "layouts/main");
-
-// Serve static files
-app.use(express.static(path.join(__dirname, "public")));
-
-// Routes
 app.get("/", (req, res) => {
   res.render("index", {
     title: "Home | ResQ",
@@ -142,7 +132,7 @@ app.get("/login", (req, res) => {
     page: "login",
   });
 });
-// Admin Login
+
 app.get("/admin/login", (req, res) => {
   if (req.session.user?.role === "admin") {
     return res.redirect("/admin");
@@ -241,54 +231,74 @@ app.get("/hospitals", (req, res) => {
 app.get("/services", (req, res) => {
   res.render("services", {
     title: "Services | ResQ",
-    page: "contact",
+    page: "services",
   });
 });
 
-// Route directly to the auth routes for the logout page
+// ==========================================
+// 7. LOGOUT ROUTE
+// ==========================================
+
 app.get("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      console.error("Error destroying session:", err);
+      console.error("Session destroy error:", err);
     }
+
+    res.clearCookie("connect.sid");
     res.redirect("/");
   });
 });
 
-// Add API routes
-const reminderRoutes = require("./server/routes/reminderRoutes");
-const authRoutes = require("./server/routes/authRoutes");
-const appointmentRoutes = require("./server/routes/appointmentRoutes");
-const medicationRoutes = require("./server/routes/medicationRoutes");
-const ambulanceRoutes = require("./server/routes/ambulanceRoutes");
+// ==========================================
+// 8. API ROUTES
+// ==========================================
 
-app.use("/api/reminders", reminderRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/appointments", appointmentRoutes);
-app.use("/api/medications", medicationRoutes);
-app.use("/api/ambulance", ambulanceRoutes);
-console.log("reminderRoutes:", typeof reminderRoutes);
-console.log("authRoutes:", typeof authRoutes);
-console.log("appointmentRoutes:", typeof appointmentRoutes);
-console.log("medicationRoutes:", typeof medicationRoutes);
-console.log("ambulanceRoutes:", typeof ambulanceRoutes);
+app.use("/api/reminders", require("./server/routes/reminderRoutes"));
 
-const adminRoutes = require("./server/routes/adminRoutes");
+app.use("/api/auth", require("./server/routes/authRoutes"));
 
-console.log("adminRoutes:", typeof adminRoutes);
-app.use("/admin", adminRoutes);
+app.use("/api/appointments", require("./server/routes/appointmentRoutes"));
 
-// Start server after MongoDB and Admin setup
+app.use("/api/medications", require("./server/routes/medicationRoutes"));
+
+app.use("/api/ambulance", require("./server/routes/ambulanceRoutes"));
+
+app.use("/admin", require("./server/routes/adminRoutes"));
+
+// ==========================================
+// 9. HEALTH CHECK ROUTE
+// ==========================================
+
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "OK",
+    database:
+      mongoose.connection.readyState === 1 ? "Connected" : "Disconnected",
+    application: "ResQ Healthcare Management System",
+  });
+});
+
+// ==========================================
+// 10. DATABASE CONNECTION & SERVER START
+// ==========================================
+
 async function startServer() {
   try {
-    if (!process.env.MONGODB_URI) {
-      throw new Error("MONGODB_URI is missing from .env file");
+    const mongoURI = process.env.MONGODB_URI;
+
+    if (!mongoURI) {
+      throw new Error("MONGODB_URI is missing");
     }
 
-    console.log("Connecting to MongoDB...");
+    if (!process.env.SESSION_SECRET) {
+      throw new Error("SESSION_SECRET is missing");
+    }
 
-    await mongoose.connect(process.env.MONGODB_URI, {
-      serverSelectionTimeoutMS: 5000,
+    console.log("Connecting to MongoDB Atlas...");
+
+    await mongoose.connect(mongoURI, {
+      serverSelectionTimeoutMS: 15000,
       socketTimeoutMS: 45000,
     });
 
@@ -298,11 +308,11 @@ async function startServer() {
 
     const PORT = process.env.PORT || 5000;
 
-    app.listen(PORT, () => {
-      console.log(`🚀 ResQ server running at http://localhost:${PORT}`);
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`ResQ server running on port ${PORT}`);
     });
   } catch (error) {
-    console.error("Server startup failed:", error);
+    console.error("Server startup failed:", error.message);
     process.exit(1);
   }
 }
