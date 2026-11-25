@@ -1,0 +1,9 @@
+
+[build]
+  publish = "public"
+
+[[redirects]]
+  from = "/*"
+  to = "https://resq-healthcare-management-system11.onrender.com/:splat"
+  status = 200
+  force = true
